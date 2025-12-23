@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle, #2c5364, #0f2027); /* เปลี่ยนเป็นวงกลมเพื่อให้จุดเด่นอยู่ตรงกลาง */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.Slider {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateX(-10deg) rotateY(360deg);
+    }
+}
+
+.Slider span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    /* สำคัญมาก: ต้องเป็น var และห้ามใส่เครื่องหมายคำพูดใน calc */
+    transform: rotateY(calc(var(--i) * 45deg)) translateZ(350px);
+}
+
+.Slider span img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2); /* เพิ่มขอบสีขาวจางๆ ให้รูปเด่นขึ้น */
+    transition: 0.5s ease;
+    
+    /* เพิ่มเงาสะท้อนด้านล่าง (Reflection) */
+    -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0004);
+}
+
+/* เอฟเฟกต์เมื่อ Hover ที่ตัวภาพ */
+.Slider span:hover img {
+    transform: translateY(-30px) scale(1.1); /* ขยับขึ้นและขยายเล็กน้อย */
+    border-color: #fff; /* เปลี่ยนขอบเป็นสีขาวสว่าง */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* เพิ่มแสงเรืองรอบภาพ */
+}
